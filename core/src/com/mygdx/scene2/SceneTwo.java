@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.mygdx.scene2.SceneTwo.MyActor;
 
 public class SceneTwo extends ApplicationAdapter {
@@ -22,18 +23,18 @@ public class SceneTwo extends ApplicationAdapter {
 		
 		
 		public MyActor(){
-			setBounds(actorX,actorY,texture.getWidth(),texture.getHeight());
-			addListener(new InputListener(){
+			setBounds(getX(),getY(),texture.getWidth(),texture.getHeight());
+			/*addListener(new InputListener(){
 				public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 					((MyActor)event.getTarget()).started = true;
 					return true;
 				}
-			});
+			});*/
 		}
 		
 		@Override
 		public void draw(Batch batch, float alpha){
-			batch.draw(texture,actorX,actorY);
+			batch.draw(texture,this.getX(),this.getY());
 		}
 		
 		@Override
@@ -52,7 +53,12 @@ public class SceneTwo extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(stage);
 		
 		MyActor myActor = new MyActor();
-		myActor.setTouchable(Touchable.enabled);
+		/*myActor.setTouchable(Touchable.enabled);*/
+		MoveToAction moveAction = new MoveToAction();
+		moveAction.setPosition(300f, 0f);
+		moveAction.setDuration(10f);
+		myActor.addAction(moveAction);
+		
 		stage.addActor(myActor);
 	}
 	
